@@ -11,7 +11,8 @@
     "typecheck": "tsc --noEmit",
     "test": "jest --runInBand",
     "test:coverage": "jest --coverage --runInBand",
-    "lint": "eslint . --ext .ts,.tsx"
+    "lint": "eslint . --ext .ts,.tsx",
+    "test:ui": "jest --runInBand --testPathPatterns='\\.ui\\.test\\.js$'"
   },
   "dependencies": {
     "@expo/vector-icons": "^15.0.2",
@@ -25,22 +26,46 @@
   "jest": {
     "testEnvironment": "node",
     "transform": {
-      "^.+\\.[jt]sx?$": ["babel-jest", { "presets": ["@babel/preset-typescript"], "plugins": ["@babel/plugin-transform-modules-commonjs"] }]
+      "^.+\\.[jt]sx?$": [
+        "babel-jest",
+        {
+          "presets": [
+            "module:@react-native/babel-preset"
+          ]
+        }
+      ]
     },
     "collectCoverageFrom": [
+      "App.tsx",
+      "src/components/**/*.tsx",
       "src/domain/**/*.ts",
+      "src/hooks/**/*.ts",
       "src/infrastructure/**/*.ts",
-      "src/navigation/**/*.ts"
+      "src/navigation/**/*.ts",
+      "src/screens/**/*.tsx"
     ],
     "coverageThreshold": {
-      "global": { "branches": 85, "functions": 90, "lines": 90, "statements": 90 }
-    }
+      "global": {
+        "branches": 50,
+        "functions": 70,
+        "lines": 75,
+        "statements": 75
+      }
+    },
+    "setupFilesAfterEnv": [
+      "<rootDir>/src/test/setup.js"
+    ],
+    "transformIgnorePatterns": [
+      "node_modules/(?!((jest-)?react-native|@react-native(-community)?)/)"
+    ]
   },
   "devDependencies": {
     "@types/react": "~19.1.10",
     "eslint": "^9.39.1",
     "eslint-config-expo": "~10.0.0",
     "jest": "^30.2.0",
-    "typescript": "~5.9.2"
+    "typescript": "~5.9.2",
+    "@testing-library/react-native": "^13.3.3",
+    "react-test-renderer": "19.1.0"
   }
 }

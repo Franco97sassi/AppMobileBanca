@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" role="img" aria-labelledby="title desc">
+  <title id="title">Símbolo de Áurea</title>
+  <desc id="desc">Una letra A dorada estilizada sobre un fondo verde profundo.</desc>
+  <rect width="1024" height="1024" rx="224" fill="#071F1A"/>
+  <path d="M512 176 224 816h150l55-137h166l55 137h150L512 176Zm0 263 48 120h-96l48-120Z" fill="#EBC56B"/>
+  <path d="M303 816h418" stroke="#F4F1E9" stroke-width="30" stroke-linecap="round" opacity=".9"/>
+</svg>

@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1284 2778" role="img" aria-labelledby="title desc">
+  <title id="title">Pantalla de inicio de Áurea</title>
+  <desc id="desc">Marca dorada y nombre Áurea sobre fondo verde profundo.</desc>
+  <rect width="1284" height="2778" fill="#071F1A"/>
+  <g transform="translate(402 1015)">
+    <rect width="480" height="480" rx="112" fill="#123E35"/>
+    <path d="M240 72 105 372h71l26-64h78l26 64h70L240 72Zm0 123 23 57h-46l23-57Z" fill="#EBC56B"/>
+    <path d="M142 372h196" stroke="#F4F1E9" stroke-width="14" stroke-linecap="round" opacity=".9"/>
+  </g>
+  <text x="642" y="1605" text-anchor="middle" fill="#F4F1E9" font-family="Arial, sans-serif" font-size="88" font-weight="700" letter-spacing="24">ÁUREA</text>
+  <text x="642" y="1690" text-anchor="middle" fill="#F4F1E9" opacity=".62" font-family="Arial, sans-serif" font-size="34">Tu dinero, con otra perspectiva.</text>
+</svg>

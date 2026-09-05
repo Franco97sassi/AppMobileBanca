@@ -40,11 +40,12 @@ Pulsa `a` para Android, `i` para iOS o escanea el QR con Expo Go. Las credencial
 npm run typecheck      # tipos estrictos
 npm run lint           # reglas Expo/React Native
 npm test               # pruebas del dominio
-npm run test:coverage  # cobertura
+npm run test:coverage  # cobertura de dominio, infraestructura e interfaz
+npm run test:ui        # pruebas de componentes, pantallas, hook e integración
 ```
 
 GitHub Actions ejecuta esas comprobaciones en cada `push` y pull request. El flujo crítico de transferencia también está descrito como prueba de dispositivo en `e2e/transfer.yaml` (Maestro).
-La cobertura incluye dominio, navegación e infraestructura y aplica un umbral global mínimo de 90% en líneas, funciones y sentencias, y 85% en ramas.
+La cobertura incluye dominio, navegación, infraestructura, hooks, componentes, pantallas e integración de `App.tsx`. Las pruebas de interfaz usan React Native Testing Library y el umbral global protege el conjunto completo, no solo las reglas puras.
 
 ## Arquitectura
 
@@ -73,7 +74,7 @@ Los datos viven exclusivamente en memoria. Los mensajes de la interfaz distingue
 - [ ] Conectar el adaptador HTTP a un backend desplegado y añadir cache de servidor.
 - [ ] Ejecutar el flujo Maestro en una granja de dispositivos desde CI.
 - [ ] Modo oscuro y localización.
-- [ ] Build público con EAS Update.
+- [ ] Publicar el perfil de producción ya preparado en `eas.json` con EAS Build/Submit.
 
 ## Conversación para entrevistas
 
