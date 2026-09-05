@@ -1,6 +1,6 @@
 import { Account, Beneficiary, Transaction } from '../types';
 
-export const accounts: Account[] = [
+export const initialAccounts: Account[] = [
   { id: 'main', name: 'Cuenta principal', number: '•••• 4821', balance: 12840.65, currency: 'EUR', color: ['#123E35', '#071F1A'] },
   { id: 'save', name: 'Ahorro inteligente', number: '•••• 1094', balance: 5270.2, currency: 'EUR', color: ['#9B7B39', '#55401B'] },
 ];

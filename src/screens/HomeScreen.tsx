@@ -2,17 +2,18 @@ import React, { useState } from 'react';
 import { Ionicons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Dimensions, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
-import { accounts, money } from '../data/demo';
-import { Transaction } from '../types';
+import { money } from '../data/demo';
+import { totalBalance } from '../state/banking';
+import { Account, Transaction } from '../types';
 import { colors } from '../theme';
 import { Header, SectionTitle } from '../components/Primitives';
 import { TransactionRow } from '../components/TransactionRow';
 
-export function HomeScreen({ transactions, goTransfer, goActivity }: { transactions: Transaction[]; goTransfer: () => void; goActivity: () => void }) {
+export function HomeScreen({ accounts, transactions, goTransfer, goActivity }: { accounts: Account[]; transactions: Transaction[]; goTransfer: () => void; goActivity: () => void }) {
   const [hidden, setHidden] = useState(false);
   return <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.content}>
     <Header title="Hola, Daniela" subtitle="Viernes, 4 de septiembre" />
-    <View style={styles.heading}><Text style={styles.eyebrow}>PATRIMONIO TOTAL</Text><View style={styles.balanceLine}><Text style={styles.total}>{hidden ? '••••••' : money(18110.85)}</Text><Pressable onPress={() => setHidden(v => !v)} accessibilityLabel="Mostrar u ocultar saldo"><Ionicons name={hidden ? 'eye-off-outline' : 'eye-outline'} size={21} color={colors.muted} /></Pressable></View><Text style={styles.growth}>↗  4,8% este mes</Text></View>
+    <View style={styles.heading}><Text style={styles.eyebrow}>PATRIMONIO TOTAL</Text><View style={styles.balanceLine}><Text style={styles.total}>{hidden ? '••••••' : money(totalBalance(accounts))}</Text><Pressable onPress={() => setHidden(v => !v)} accessibilityLabel="Mostrar u ocultar saldo"><Ionicons name={hidden ? 'eye-off-outline' : 'eye-outline'} size={21} color={colors.muted} /></Pressable></View><Text style={styles.growth}>↗  4,8% este mes</Text></View>
     <ScrollView horizontal showsHorizontalScrollIndicator={false} snapToInterval={Dimensions.get('window').width - 42} decelerationRate="fast" contentContainerStyle={styles.accountList}>
       {accounts.map(account => <LinearGradient key={account.id} colors={account.color} style={styles.card}>
         <View style={styles.cardTop}><Text style={styles.cardName}>{account.name}</Text><Ionicons name="wifi-outline" size={20} color="#FFFFFFAA" /></View>

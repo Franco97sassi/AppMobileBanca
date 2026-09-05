@@ -5,14 +5,17 @@ import { Transaction } from '../types';
 import { colors } from '../theme';
 import { Header } from '../components/Primitives';
 import { TransactionRow } from '../components/TransactionRow';
+import { money } from '../data/demo';
+import { transactionTotals } from '../state/banking';
 
 export function ActivityScreen({ transactions }: { transactions: Transaction[] }) {
   const [query, setQuery] = useState(''); const [filter, setFilter] = useState('Todos');
   const shown = useMemo(() => transactions.filter(t => (filter === 'Todos' || (filter === 'Ingresos' ? t.amount > 0 : t.amount < 0)) && t.title.toLowerCase().includes(query.toLowerCase())), [filter, query, transactions]);
+  const totals = useMemo(() => transactionTotals(transactions), [transactions]);
   return <ScrollView contentContainerStyle={styles.content}><Header title="Actividad" subtitle="Todos tus movimientos" />
     <View style={styles.search}><Ionicons name="search-outline" size={19} color={colors.muted} /><TextInput value={query} onChangeText={setQuery} placeholder="Buscar movimientos" placeholderTextColor={colors.muted} style={styles.input} /></View>
     <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.filters}>{['Todos', 'Ingresos', 'Gastos'].map(value => <Pressable key={value} onPress={() => setFilter(value)} style={[styles.chip, filter === value && styles.chipActive]}><Text style={[styles.chipText, filter === value && styles.chipTextActive]}>{value}</Text></Pressable>)}</ScrollView>
-    <View style={styles.summary}><View><Text style={styles.summaryLabel}>Ingresos de septiembre</Text><Text style={styles.income}>+ 2.840,00 €</Text></View><View><Text style={styles.summaryLabel}>Gastos</Text><Text style={styles.expense}>− 347,09 €</Text></View></View>
+    <View style={styles.summary}><View><Text style={styles.summaryLabel}>Ingresos registrados</Text><Text style={styles.income}>+ {money(totals.income)}</Text></View><View><Text style={styles.summaryLabel}>Gastos</Text><Text style={styles.expense}>− {money(totals.expenses)}</Text></View></View>
     <Text style={styles.month}>SEPTIEMBRE</Text><View style={styles.list}>{shown.map(item => <TransactionRow key={item.id} item={item} />)}{shown.length === 0 && <Text style={styles.none}>No se encontraron movimientos.</Text>}</View>
   </ScrollView>;
 }

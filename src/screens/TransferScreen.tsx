@@ -2,21 +2,22 @@ import React, { useState } from 'react';
 import { Ionicons } from '@expo/vector-icons';
 import { Alert, KeyboardAvoidingView, Platform, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
 import { beneficiaries, money } from '../data/demo';
-import { Beneficiary, Transaction } from '../types';
+import { TransferInput } from '../state/banking';
+import { Account, Beneficiary } from '../types';
 import { colors } from '../theme';
 import { Header } from '../components/Primitives';
 
-export function TransferScreen({ onDone }: { onDone: (transaction: Transaction) => void }) {
+export function TransferScreen({ account, onDone }: { account: Account; onDone: (transfer: TransferInput) => void }) {
   const [person, setPerson] = useState<Beneficiary>(); const [amount, setAmount] = useState(''); const [concept, setConcept] = useState(''); const [sent, setSent] = useState(false);
-  const value = Number(amount.replace(',', '.')); const valid = person && value > 0 && value <= 12840.65;
-  const submit = () => { if (!valid || !person) return; const item: Transaction = { id: Date.now().toString(), title: `Transferencia a ${person.name}`, category: concept || 'Transferencias', date: 'Ahora', amount: -value, icon: 'arrow-up-outline', status: 'Completado' }; onDone(item); setSent(true); };
+  const value = Number(amount.replace(',', '.')); const valid = person && value > 0 && value <= account.balance;
+  const submit = () => { if (!valid || !person) return; onDone({ beneficiary: person, amount: value, concept }); setSent(true); };
   if (sent) return <View style={styles.success}><View style={styles.check}><Ionicons name="checkmark" color={colors.white} size={43} /></View><Text style={styles.successTitle}>¡Transferencia enviada!</Text><Text style={styles.successBody}>{money(value)} llegarán a {person?.name}. El movimiento ya está disponible en tu actividad.</Text><View style={styles.receipt}><Info label="Desde" value="Cuenta principal •4821" /><Info label="Para" value={person?.name ?? ''} /><Info label="Concepto" value={concept || 'Transferencia'} /><Info label="Estado" value="Completado" /></View><Pressable onPress={() => { setSent(false); setPerson(undefined); setAmount(''); setConcept(''); }} style={styles.button}><Text style={styles.buttonText}>Hacer otra transferencia</Text></Pressable></View>;
   return <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : undefined}><ScrollView contentContainerStyle={styles.content} keyboardShouldPersistTaps="handled"><Header title="Enviar dinero" subtitle="Transferencia inmediata" />
     <Text style={styles.label}>DESTINATARIO</Text><ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.people}><Pressable style={styles.person}><View style={styles.add}><Ionicons name="add" size={24} color={colors.green} /></View><Text style={styles.personName}>Nuevo</Text></Pressable>{beneficiaries.map(p => <Pressable key={p.id} onPress={() => setPerson(p)} style={styles.person}><View style={[styles.avatar, { backgroundColor: p.color }, person?.id === p.id && styles.selected]}><Text style={styles.initials}>{p.initials}</Text>{person?.id === p.id && <View style={styles.badge}><Ionicons name="checkmark" size={10} color={colors.white} /></View>}</View><Text numberOfLines={1} style={styles.personName}>{p.name.split(' ')[0]}</Text></Pressable>)}</ScrollView>
     {person && <View style={styles.destination}><View><Text style={styles.destName}>{person.name}</Text><Text style={styles.destIban}>{person.iban}</Text></View><Ionicons name="checkmark-circle" size={22} color="#187552" /></View>}
-    <View style={styles.amountBox}><Text style={styles.amountLabel}>IMPORTE</Text><View style={styles.amountLine}><TextInput value={amount} onChangeText={setAmount} placeholder="0,00" keyboardType="decimal-pad" placeholderTextColor="#A5AEAA" style={styles.amountInput} /><Text style={styles.euro}>€</Text></View><Text style={styles.available}>Disponible: 12.840,65 €</Text></View>
+    <View style={styles.amountBox}><Text style={styles.amountLabel}>IMPORTE</Text><View style={styles.amountLine}><TextInput value={amount} onChangeText={setAmount} placeholder="0,00" keyboardType="decimal-pad" placeholderTextColor="#A5AEAA" style={styles.amountInput} /><Text style={styles.euro}>€</Text></View><Text style={styles.available}>Disponible: {money(account.balance, account.currency)}</Text></View>
     <Text style={styles.label}>CONCEPTO (OPCIONAL)</Text><TextInput value={concept} onChangeText={setConcept} maxLength={60} placeholder="¿Para qué es?" placeholderTextColor={colors.muted} style={styles.concept} />
-    <View style={styles.security}><Ionicons name="shield-checkmark-outline" size={22} color={colors.green} /><Text style={styles.securityText}>Protegida con cifrado de extremo a extremo y clave idempotente.</Text></View>
+    <View style={styles.security}><Ionicons name="information-circle-outline" size={22} color={colors.green} /><Text style={styles.securityText}>Simulación local: no se envían datos ni dinero real.</Text></View>
     <Pressable onPress={valid ? submit : () => Alert.alert('Revisa los datos', 'Selecciona un destinatario e introduce un importe válido.')} style={[styles.button, !valid && styles.disabled]}><Text style={styles.buttonText}>Revisar y enviar</Text><Ionicons name="arrow-forward" size={19} color={colors.white} /></Pressable>
   </ScrollView></KeyboardAvoidingView>;
 }
