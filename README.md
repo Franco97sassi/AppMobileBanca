@@ -21,6 +21,20 @@
 - Perfil, indicador de 2FA, auditoría visual y cierre de sesión.
 - Etiquetas de accesibilidad, estados vacíos y teclado adaptado a iOS/Android.
 
+## Capturas de pantalla
+
+Las capturas siguen el recorrido principal de la aplicación: acceso, consulta de saldos y movimientos, transferencia, gestión de tarjetas y perfil.
+
+| Acceso | Inicio |
+|:---:|:---:|
+| <img src="docs/images/login-aurea.jpg" alt="Pantalla de acceso a Áurea" width="320" /> | <img src="docs/images/dashboard-aurea.jpg" alt="Dashboard principal con patrimonio, cuentas y últimos movimientos" width="320" /> |
+| **Privacidad de saldos** | **Actividad** |
+| <img src="docs/images/saldos-ocultos.jpg" alt="Dashboard con los saldos ocultos" width="320" /> | <img src="docs/images/historial.jpg" alt="Historial de movimientos con búsqueda y filtros" width="320" /> |
+| **Comprobante de transferencia** | **Gestión de tarjetas** |
+| <img src="docs/images/comprobante.jpg" alt="Confirmación y comprobante de una transferencia enviada" width="320" /> | <img src="docs/images/congelada.jpg" alt="Gestión de una tarjeta congelada y sus permisos" width="320" /> |
+| **Perfil y seguridad** | |
+| <img src="docs/images/perfil.jpg" alt="Perfil de usuario con opciones de cuenta y seguridad" width="320" /> | |
+
 ## Inicio rápido
 
 **Requisitos:** Node.js 20+, npm y Expo Go o un simulador.
