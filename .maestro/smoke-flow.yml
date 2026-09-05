@@ -1,0 +1,15 @@
+appId: com.portfolio.aurea
+---
+- launchApp:
+    clearState: true
+- assertVisible: "Te damos la bienvenida"
+- tapOn: "Acceder"
+- assertVisible: "Hola, Daniela"
+- tapOn: "Enviar"
+- tapOn: "Ana"
+- tapOn: "0,00"
+- inputText: "25,50"
+- tapOn: "Revisar y enviar"
+- assertVisible: "¡Transferencia enviada!"
+- tapOn: "Hacer otra transferencia"
+- assertVisible: "Enviar dinero"
