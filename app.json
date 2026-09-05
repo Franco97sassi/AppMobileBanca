@@ -1,0 +1,13 @@
+{
+  "expo": {
+    "name": "Áurea Mobile",
+    "slug": "aurea-mobile",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "splash": { "backgroundColor": "#071F1A" },
+    "ios": { "supportsTablet": true, "bundleIdentifier": "com.portfolio.aurea" },
+    "android": { "package": "com.portfolio.aurea", "adaptiveIcon": { "backgroundColor": "#071F1A" } },
+    "web": { "bundler": "metro" }
+  }
+}
