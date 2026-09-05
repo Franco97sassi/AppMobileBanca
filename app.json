@@ -6,9 +6,28 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "userInterfaceStyle": "light",
-    "splash": { "backgroundColor": "#071F1A" },
-    "ios": { "supportsTablet": true, "bundleIdentifier": "com.portfolio.aurea" },
-    "android": { "package": "com.portfolio.aurea", "adaptiveIcon": { "backgroundColor": "#071F1A" } },
-    "web": { "bundler": "metro" }
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.portfolio.aurea"
+    },
+    "android": {
+      "package": "com.portfolio.aurea",
+      "adaptiveIcon": {
+        "backgroundColor": "#071F1A"
+      }
+    },
+    "web": {
+      "bundler": "metro"
+    },
+    "plugins": [
+      "expo-status-bar",
+      [
+        "expo-splash-screen",
+        {
+          "backgroundColor": "#071F1A"
+        }
+      ],
+      "expo-font"
+    ]
   }
 }
