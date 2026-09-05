@@ -3,7 +3,7 @@
 > Una experiencia bancaria móvil de portafolio construida con React Native, Expo y TypeScript.
 
 [![Quality](https://github.com/Franco97sassi/AppMobileBanca/actions/workflows/quality.yml/badge.svg)](https://github.com/Franco97sassi/AppMobileBanca/actions/workflows/quality.yml)
-![Expo](https://img.shields.io/badge/Expo-54-000020?logo=expo)
+![Expo](https://img.shields.io/badge/Expo-57-000020?logo=expo)
 ![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178C6?logo=typescript)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
@@ -57,8 +57,8 @@ npm test               # pruebas del dominio
 npm run test:coverage  # cobertura
 ```
 
-GitHub Actions ejecuta esas comprobaciones en cada `push` y pull request. El flujo crítico de transferencia también está descrito como prueba de dispositivo en `e2e/transfer.yaml` (Maestro).
-La cobertura incluye dominio, navegación e infraestructura y aplica un umbral global mínimo de 90% en líneas, funciones y sentencias, y 85% en ramas.
+GitHub Actions ejecuta esas comprobaciones en cada `push` y pull request. Un segundo job construye la aplicación Android y ejecuta en un emulador el flujo crítico de transferencia descrito en `e2e/transfer.yaml` (Maestro).
+La cobertura incluye componentes críticos, dominio, navegación e infraestructura y aplica un umbral global mínimo de 90% en líneas, funciones y sentencias, y 85% en ramas.
 
 ## Arquitectura
 
@@ -83,9 +83,9 @@ Los datos viven exclusivamente en memoria. Los mensajes de la interfaz distingue
 
 ## Evolución pendiente
 
-- [ ] React Navigation para stacks, transiciones nativas y restauración de estado.
+- [ ] React Navigation para transiciones nativas y restauración persistente de estado; la demo ya centraliza las rutas en un navegador tipado y conserva el historial de la sesión.
 - [ ] Conectar el adaptador HTTP a un backend desplegado y añadir cache de servidor.
-- [ ] Ejecutar el flujo Maestro en una granja de dispositivos desde CI.
+- [ ] Ampliar la matriz Maestro de CI con más versiones y dispositivos reales.
 - [ ] Modo oscuro y localización.
 - [ ] Build público con EAS Update.
 
