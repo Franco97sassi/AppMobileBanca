@@ -11,10 +11,12 @@
 
 ## Funcionalidades
 
-- Acceso demo, contraseña ocultable y feedback de carga.
+- Acceso demo, contraseña ocultable y estados explícitos de carga, error y reintento.
 - Dashboard con patrimonio, cuentas, saldo ocultable y fecha dinámica.
 - Historial con búsqueda por comercio/categoría, filtros y totales calculados.
-- Transferencias con validación de formato, destinatario y saldo, además de comprobante.
+- Transferencias cancelables con validación, clave idempotente, prevención de doble envío y comprobante.
+- Deep links (`aurea://transfer`, `aurea://activity`) para abrir directamente cada sección.
+- Adaptadores local y HTTP tipado bajo el mismo contrato, con timeout y mapeo consistente de errores.
 - Tarjeta interactiva con congelación, compras online y uso internacional.
 - Perfil, indicador de 2FA, auditoría visual y cierre de sesión.
 - Etiquetas de accesibilidad, estados vacíos y teclado adaptado a iOS/Android.
@@ -41,7 +43,8 @@ npm test               # pruebas del dominio
 npm run test:coverage  # cobertura
 ```
 
-GitHub Actions ejecuta esas comprobaciones en cada `push` y pull request.
+GitHub Actions ejecuta esas comprobaciones en cada `push` y pull request. El flujo crítico de transferencia también está descrito como prueba de dispositivo en `e2e/transfer.yaml` (Maestro).
+La cobertura incluye dominio, navegación e infraestructura y aplica un umbral global mínimo de 90% en líneas, funciones y sentencias, y 85% en ramas.
 
 ## Arquitectura
 
@@ -52,6 +55,7 @@ src/
 ├── data/               # fixtures de la demostración
 ├── domain/             # reglas puras y pruebas unitarias
 ├── hooks/              # sesión, navegación y estado demo
+├── infrastructure/     # adaptadores local y HTTP intercambiables
 ├── screens/            # casos de uso
 ├── theme.ts            # tokens visuales
 └── types.ts            # contratos del dominio
@@ -63,11 +67,11 @@ Consulta el [diagrama y las decisiones de arquitectura](docs/architecture.md).
 
 Los datos viven exclusivamente en memoria. Los mensajes de la interfaz distinguen la simulación de las protecciones que corresponderían a producción. Un producto real necesitaría un backend autoritativo para saldos, límites, fraude y ledger; tokens en Keychain/Keystore; biometría; telemetría sin PII y claves de idempotencia generadas por operación.
 
-## Roadmap
+## Evolución pendiente
 
-- [ ] React Navigation y deep links.
-- [ ] Cliente HTTP tipado y TanStack Query.
-- [ ] Pruebas de componentes y E2E en dispositivos.
+- [ ] React Navigation para stacks, transiciones nativas y restauración de estado.
+- [ ] Conectar el adaptador HTTP a un backend desplegado y añadir cache de servidor.
+- [ ] Ejecutar el flujo Maestro en una granja de dispositivos desde CI.
 - [ ] Modo oscuro y localización.
 - [ ] Build público con EAS Update.
 
