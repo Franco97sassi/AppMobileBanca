@@ -36,12 +36,14 @@
             "@babel/preset-typescript"
           ],
           "plugins": [
-            "@babel/plugin-transform-modules-commonjs"
+            "@babel/plugin-transform-modules-commonjs",
+            "@babel/plugin-transform-react-jsx"
           ]
         }
       ]
     },
     "collectCoverageFrom": [
+      "src/components/BottomNav.tsx",
       "src/domain/**/*.ts",
       "src/infrastructure/**/*.ts",
       "src/navigation/**/*.ts"

@@ -17,3 +17,34 @@ jobs:
       - run: npm run typecheck
       - run: npm run lint
       - run: npm run test:coverage
+
+  android-e2e:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+      - run: npm ci
+      - name: Build Android demo
+        run: |
+          npx expo prebuild --platform android --no-install
+          cd android && ./gradlew assembleRelease
+      - name: Install Maestro
+        run: |
+          curl -Ls "https://get.maestro.mobile.dev" | bash
+          echo "$HOME/.maestro/bin" >> "$GITHUB_PATH"
+      - name: Run transfer journey
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 35
+          arch: x86_64
+          script: |
+            adb install android/app/build/outputs/apk/release/app-release.apk
+            maestro test e2e/transfer.yaml
