@@ -1,0 +1,10 @@
+appId: com.portfolio.aurea
+---
+- launchApp
+- tapOn: "Acceder"
+- tapOn: "Enviar"
+- tapOn: "Ana"
+- tapOn: "0,00"
+- inputText: "25,50"
+- tapOn: "Revisar y enviar"
+- assertVisible: "¡Transferencia enviada!"

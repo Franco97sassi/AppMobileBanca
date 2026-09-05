@@ -2,6 +2,7 @@
   "expo": {
     "name": "Áurea Mobile",
     "slug": "aurea-mobile",
+    "scheme": "aurea",
     "version": "1.0.0",
     "orientation": "portrait",
     "userInterfaceStyle": "light",
